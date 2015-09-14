@@ -1,0 +1,19 @@
+#jinja2: line_statement_prefix: "%", line_comment_prefix: "##", trim_blocks: True, lstrip_blocks: True
+# {{ ansible_managed }}
+# sSMTP aliases
+#
+# Format:	local_account:outgoing_address:mailhub
+#
+# Example: root:your_login@your.domain:mailhub.your.domain[:port]
+# where [:port] is an optional port number that defaults to 25.
+
+root:{{ inventory_hostname }}-root@{{ ssmtp_rewrite_domain }}:{{ ssmtp_mailhub }}
+% if ssmtp_revaliases is defined:
+  % for alias in ssmtp_revaliases:
+{{ alias }}:{{ inventory_hostname }}-{{ alias }}@{{ ssmtp_rewrite_domain }}:{{ ssmtp_mailhub }}
+  % endfor
+% endif
+
+##- Local Variables:
+##- mode: jinja2
+##- End:

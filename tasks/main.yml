@@ -1,0 +1,7 @@
+---
+
+- name: Set up revaliases
+
+  template:
+    src: revaliases.j2
+    dest: /etc/ssmtp/revaliases
